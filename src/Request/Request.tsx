@@ -4,7 +4,6 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFile, faFileExcel, faFileImage, faFileArchive, faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import Approver from '../Approver/Approver';
-import RequestRow from './RequestRow/RequestRow';
 import style from './Request.style';
 
 const useStyles = createUseStyles(style);
@@ -64,7 +63,6 @@ interface IFile {
 const Request: React.FC<IRequestProps> = ({ request }: IRequestProps) => {
   const theme = useTheme();
   const classes = useStyles({ theme });
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 375);
   const [approved, setApproved] = useState([] as IRequestApprover[]);
   const [pending, setPending] = useState([] as IRequestApprover[]);
   const [file, setFile] = useState({} as IFile);
@@ -90,15 +88,6 @@ const Request: React.FC<IRequestProps> = ({ request }: IRequestProps) => {
     }
   }, [request]);
 
-  useEffect(() => {
-    function handleResize() {
-      setIsDesktop(window.innerWidth > 375);
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
   return (
     <div className={classes.container}>
       <div className={classes.serviceContainer}>
@@ -107,32 +96,20 @@ const Request: React.FC<IRequestProps> = ({ request }: IRequestProps) => {
 
       <div className={classes.requestGridContainer}>
         <div className={classes.requestGrid}>
-          <RequestRow>
-            <div>Requested by</div>
-            <div className={classes.requestGridRowRequestedBy}>
-              <img className={classes.requestedByAvatar} src={request.requested_by.profile_picture} alt={request.requested_by.first_name} />
-              <span>{request.requested_by.first_name} {request.requested_by.last_name}</span>
-            </div>
-          </RequestRow>
-
-          <RequestRow>
-            <div>Cost</div>
-            <div>${request.cost}</div>
-          </RequestRow>
-          {/*<div className={classes.requestGridRow}>
+          <div className={classes.requestGridRow}>
             <div className={classes.requestGridRowLabel}>Requested by</div>
             <div className={classes.requestGridRowValue}>
               <img className={classes.requestedByAvatar} src={request.requested_by.profile_picture} alt={request.requested_by.first_name} /> {request.requested_by.first_name} {request.requested_by.last_name}
             </div>
-  </div>
+          </div>
 
           <div className={classes.requestGridRow}>
             <div className={classes.requestGridRowLabel}>Cost</div>
             <div className={classes.requestGridRowValue}>${request.cost}</div>
-          </div>*/}
+          </div>
 
           <div className={classes.requestGridRowDouble}>
-            <div className={classes.requestGridRowSingle}>
+            <div className={`${classes.requestGridRowSingle} ${classes.borderRight}`}>
               <div className={classes.requestGridRowSingleLabel}>Renewal Frequency</div>
               <div className={classes.requestGridRowSingleValue}>{request.renewal_frequency_in_months} {request.renewal_frequency_in_months === 1 ? 'month' : 'months'}</div>
             </div>
@@ -143,29 +120,17 @@ const Request: React.FC<IRequestProps> = ({ request }: IRequestProps) => {
             </div>
           </div>
 
-          <RequestRow>
-            <div>Expense Account</div>
-            <div>{request.expense_account}</div>
-          </RequestRow>
-
-          {/*<div className={classes.requestGridRow}>
+          <div className={classes.requestGridRow}>
             <div className={classes.requestGridRowLabel}>Expense Account</div>
             <div className={classes.requestGridRowValue}>{request.expense_account}</div>
-        </div>*/}
+          </div>
 
-          {isDesktop && <RequestRow>
-            <div>File</div>
-            {file && file.icon && <div>
-              <FontAwesomeIcon className={classes.requestFileIcon} icon={file.icon} /> {file.name}
-            </div>}
-          </RequestRow>}
-
-          {/*<div className={classes.requestGridRowFile}>
+          <div className={classes.requestGridRowFile}>
             <div className={classes.requestGridRowLabel}>File</div>
             {file && file.icon && <div className={classes.requestGridRowValue}>
               <FontAwesomeIcon className={classes.requestFileIcon} icon={file.icon} /> {file.name}
             </div>}
-          </div>*/}
+          </div>
 
           <div className={classes.requestGridRowDescription}>
             <div className={classes.requestGridRowLabelDescription}>Description</div>

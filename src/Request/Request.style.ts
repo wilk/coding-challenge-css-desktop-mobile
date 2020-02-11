@@ -1,12 +1,24 @@
 import { ITheme } from '../theme';
 
+const commonGridRowStyle = (theme: ITheme) => ({
+  display: 'flex',
+  alignItems: 'center',
+  borderBottom: `1px solid ${theme.palette.light}`,
+  padding: {
+    top: 10,
+    bottom: 10,
+    left: theme.spacing.gutter,
+    right: theme.spacing.gutter
+  }
+});
+
 export default (theme: ITheme) => ({
   container: {
     display: 'flex',
     flexFlow: 'column',
     [theme.media.desktop]: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(2, auto)',
+      gridTemplateColumns: '60% 40%',
       gridTemplateRows: 'repeat(6, auto)',
       backgroundColor: '#fff',
       borderRadius: 8
@@ -72,14 +84,6 @@ export default (theme: ITheme) => ({
     boxSizing: 'border-box',
     boxShadow: `0px 2px 4px ${theme.palette.light}`,
     borderRadius: 8,
-    '& > div': {
-      padding: {
-        top: 10,
-        bottom: 10,
-        left: theme.spacing.gutter,
-        right: theme.spacing.gutter
-      }
-    },
     [theme.media.desktop]: {
       margin: {
         left: theme.spacing.gutter,
@@ -96,11 +100,7 @@ export default (theme: ITheme) => ({
       width: '100%'
     }
   },
-  requestGridRow: {
-    display: 'flex',
-    alignItems: 'center',
-    borderBottom: `1px solid ${theme.palette.light}`
-  },
+  requestGridRow: commonGridRowStyle(theme),
   requestGridRowLabel: {
     flexBasis: '45%',
     color: theme.palette.secondary,
@@ -122,16 +122,8 @@ export default (theme: ITheme) => ({
     fontSize: theme.fontSize.lg
   },
   requestGridRowDescription: {
-    /*padding: {
-      top: 10,
-      bottom: 10,
-      left: theme.spacing.gutter,
-      right: theme.spacing.gutter
-    },*/
+    ...commonGridRowStyle(theme),
     flexFlow: 'wrap',
-    display: 'flex',
-    alignItems: 'center',
-    borderBottom: `1px solid ${theme.palette.light}`,
     [theme.media.desktop]: {
       flexFlow: 'normal'
     },
@@ -156,24 +148,23 @@ export default (theme: ITheme) => ({
       flexFlow: 'row'
     }
   },
-  requestGridRowSingle: {
-    flexBasis: '100%',
-    display: 'flex',
-    borderBottom: `1px solid ${theme.palette.light}`,
-    padding: {
-      top: 10,
-      bottom: 10
-    },
+  borderRight: {
     [theme.media.desktop]: {
-      flexBasis: '50%',
       borderRight: `1px solid ${theme.palette.light}`
+    }
+  },
+  requestGridRowSingle: {
+    ...commonGridRowStyle(theme),
+    flexBasis: '100%',
+    [theme.media.desktop]: {
+      flexBasis: '50%'
     }
   },
   requestGridRowSingleLabel: {
     flexBasis: '45%',
     color: theme.palette.secondary,
     [theme.media.desktop]: {
-      flexBasis: '60%'
+      flexBasis: '64%'
     }
   },
   requestGridRowSingleValue: {
@@ -181,7 +172,7 @@ export default (theme: ITheme) => ({
     alignItems: 'center',
     flexBasis: '55%',
     [theme.media.desktop]: {
-      flexBasis: '40%'
+      flexBasis: '36%'
     },
     '& img': {
       paddingRight: 8
@@ -189,17 +180,7 @@ export default (theme: ITheme) => ({
   },
   requestGridRowFile: {
     display: 'none',
-    [theme.media.desktop]: {
-      padding: {
-        top: 10,
-        bottom: 10,
-        left: theme.spacing.gutter,
-        right: theme.spacing.gutter
-      },
-      display: 'flex',
-      alignItems: 'center',
-      borderBottom: `1px solid ${theme.palette.light}`
-    }
+    [theme.media.desktop]: commonGridRowStyle(theme),
   },
   requestWarning: {
     padding: {
