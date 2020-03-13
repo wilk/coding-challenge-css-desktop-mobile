@@ -1,7 +1,7 @@
 import React from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
 import Request from '../Request/Request';
-import AirbaseLogo from './airbase.svg';
+import Logo from './logo.svg';
 import Lock from './lock.svg';
 import request from '../request.json';
 import style from './App.style';
@@ -16,7 +16,7 @@ const App = () => {
     <div className={classes.root}>
       <div className={classes.main}>
         <div className={classes.logo}>
-          <img src={AirbaseLogo} alt="airbase" />
+          <img src={Logo} alt="logo" />
         </div>
 
         <div className={classes.securityMessageContainer}>
